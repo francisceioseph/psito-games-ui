@@ -1,6 +1,6 @@
 name: psito_games_ui
 description: The widgets the Psito games share, from the buttons on the bar to the cockatiel that peeks.
-version: 0.0.0
+version: 1.0.0
 publish_to: none
 repository: https://github.com/francisceioseph/psito-games-ui
 
