@@ -1,0 +1,22 @@
+{
+  "@@locale": "zh",
+  "newGame": "新游戏",
+  "moreOptions": "更多选项",
+  "bestGames": "最佳战绩",
+  "noScores": "还没有赢过的游戏。",
+  "close": "关闭",
+  "cancel": "取消",
+  "howToPlay": "玩法",
+  "about": "关于",
+  "yourName": "你的名字",
+  "save": "保存",
+  "skip": "跳过",
+  "playAgain": "再玩一次",
+  "statTime": "时间",
+  "statGame": "牌局",
+  "undo": "撤销",
+  "restart": "重新开始本局",
+  "chooseGame": "选择牌局编号",
+  "play": "开始",
+  "difficulty": "难度"
+}

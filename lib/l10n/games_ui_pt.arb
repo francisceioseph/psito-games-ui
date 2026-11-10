@@ -1,0 +1,22 @@
+{
+  "@@locale": "pt",
+  "newGame": "Novo jogo",
+  "moreOptions": "Mais opções",
+  "bestGames": "Melhores partidas",
+  "noScores": "Nenhuma partida vencida ainda.",
+  "close": "Fechar",
+  "cancel": "Cancelar",
+  "howToPlay": "Como jogar",
+  "about": "Sobre",
+  "yourName": "Seu nome",
+  "save": "Salvar",
+  "skip": "Pular",
+  "playAgain": "Jogar de novo",
+  "statTime": "Tempo",
+  "statGame": "Jogo",
+  "undo": "Desfazer",
+  "restart": "Recomeçar este jogo",
+  "chooseGame": "Escolher número do jogo",
+  "play": "Jogar",
+  "difficulty": "Dificuldade"
+}

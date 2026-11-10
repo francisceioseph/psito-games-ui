@@ -1,0 +1,25 @@
+name: psito_games_ui
+description: The widgets the Psito games share, from the buttons on the bar to the cockatiel that peeks.
+version: 0.0.0
+publish_to: none
+repository: https://github.com/francisceioseph/psito-games-ui
+
+environment:
+  sdk: ^3.13.3
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  generate: true
+  assets:
+    - assets/peek.png

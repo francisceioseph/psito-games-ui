@@ -1,0 +1,22 @@
+{
+  "@@locale": "en",
+  "newGame": "New game",
+  "moreOptions": "More options",
+  "bestGames": "Best games",
+  "noScores": "No games won yet.",
+  "close": "Close",
+  "cancel": "Cancel",
+  "howToPlay": "How to play",
+  "about": "About",
+  "yourName": "Your name",
+  "save": "Save",
+  "skip": "Skip",
+  "playAgain": "Play again",
+  "statTime": "Time",
+  "statGame": "Game",
+  "undo": "Undo",
+  "restart": "Restart this game",
+  "chooseGame": "Choose a game number",
+  "play": "Play",
+  "difficulty": "Difficulty"
+}

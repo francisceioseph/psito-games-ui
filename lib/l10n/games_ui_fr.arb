@@ -1,0 +1,22 @@
+{
+  "@@locale": "fr",
+  "newGame": "Nouvelle partie",
+  "moreOptions": "Plus d’options",
+  "bestGames": "Meilleures parties",
+  "noScores": "Aucune partie gagnée pour l’instant.",
+  "close": "Fermer",
+  "cancel": "Annuler",
+  "howToPlay": "Comment jouer",
+  "about": "À propos",
+  "yourName": "Votre nom",
+  "save": "Enregistrer",
+  "skip": "Passer",
+  "playAgain": "Rejouer",
+  "statTime": "Temps",
+  "statGame": "Partie",
+  "undo": "Annuler le coup",
+  "restart": "Recommencer cette partie",
+  "chooseGame": "Choisir un numéro de partie",
+  "play": "Jouer",
+  "difficulty": "Difficulté"
+}

@@ -1,0 +1,160 @@
+import 'package:flutter/material.dart';
+
+import '../atoms/bar_button.dart';
+import '../atoms/new_game_button.dart';
+import '../l10n.dart';
+import '../molecules/game_brand.dart';
+import '../theme/game_palette.dart';
+import 'dialogs.dart';
+
+/// How much room the bar has, for the pieces that shrink with it.
+class BarSpace {
+  const BarSpace(this.width);
+
+  static const compactBelow = 860.0;
+  static const narrowBelow = 600.0;
+
+  final double width;
+
+  /// The name of the game goes away and the buttons lose their words.
+  bool get compact => width < compactBelow;
+
+  /// Some buttons move into the menu.
+  bool get narrow => width < narrowBelow;
+}
+
+/// One more line of the menu, after the best games and before the help.
+class GameMenuEntry {
+  const GameMenuEntry({required this.label, required this.onSelected});
+
+  final String label;
+  final VoidCallback onSelected;
+}
+
+/// The bar above the table: the brand, the numbers of the game and the
+/// actions, with the new game and the menu always at the end.
+class GameBar extends StatelessWidget {
+  const GameBar({
+    super.key,
+    required this.info,
+    required this.stats,
+    required this.onNewGame,
+    this.actions,
+    this.onBestGames,
+    this.menu = const [],
+    this.showNameFrom = BarSpace.compactBelow,
+  });
+
+  final GameInfo info;
+  final Widget Function(BarSpace space) stats;
+
+  /// The buttons of this game, between the best games and the new game.
+  final List<Widget> Function(BarSpace space)? actions;
+  final VoidCallback onNewGame;
+
+  /// Opens the best games: a button on the bar, or a line of the menu when
+  /// the bar is narrow.
+  final VoidCallback? onBestGames;
+  final List<GameMenuEntry> menu;
+
+  /// The width from which the name of the game shows next to the cockatiel.
+  final double showNameFrom;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final l10n = context.gamesUi;
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [palette.barTop, palette.barBottom],
+        ),
+        border: const Border(bottom: BorderSide(color: Color(0x33000000))),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x33000000),
+            blurRadius: 6,
+            offset: Offset(0, 2),
+          ),
+        ],
+      ),
+      child: LayoutBuilder(
+        builder: (context, box) {
+          final space = BarSpace(box.maxWidth);
+          final bestGames = onBestGames;
+          final entries = [
+            if (space.narrow && bestGames != null)
+              GameMenuEntry(label: l10n.bestGames, onSelected: bestGames),
+            ...menu,
+            GameMenuEntry(
+              label: l10n.howToPlay,
+              onSelected: () => showHowToPlay(context, info),
+            ),
+            GameMenuEntry(
+              label: l10n.about,
+              onSelected: () => showGameAbout(context, info),
+            ),
+          ];
+          final brand = GameBrand(
+            title: info.title,
+            showName: box.maxWidth >= showNameFrom,
+          );
+          final stats = this.stats(space);
+          final actions = Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (!space.narrow && bestGames != null)
+                BarButton(
+                  tooltip: l10n.bestGames,
+                  icon: Icons.emoji_events_outlined,
+                  onPressed: bestGames,
+                ),
+              ...?this.actions?.call(space),
+              const SizedBox(width: 6),
+              NewGameButton(iconOnly: space.compact, onPressed: onNewGame),
+              PopupMenuButton<GameMenuEntry>(
+                tooltip: l10n.moreOptions,
+                iconColor: palette.onFelt,
+                style: IconButton.styleFrom(
+                  visualDensity: VisualDensity.compact,
+                ),
+                icon: const Icon(Icons.more_vert_rounded, size: 21),
+                onSelected: (entry) => entry.onSelected(),
+                itemBuilder: (context) => [
+                  for (final entry in entries)
+                    PopupMenuItem(value: entry, child: Text(entry.label)),
+                ],
+              ),
+            ],
+          );
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+            // The numbers are centred only when there is room on both sides.
+            child: Row(
+              children: space.compact
+                  ? [
+                      brand,
+                      const SizedBox(width: 12),
+                      stats,
+                      const Spacer(),
+                      actions,
+                    ]
+                  : [
+                      Expanded(child: brand),
+                      stats,
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: actions,
+                        ),
+                      ),
+                    ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+}

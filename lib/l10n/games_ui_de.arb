@@ -1,0 +1,22 @@
+{
+  "@@locale": "de",
+  "newGame": "Neues Spiel",
+  "moreOptions": "Weitere Optionen",
+  "bestGames": "Beste Spiele",
+  "noScores": "Noch keine gewonnenen Spiele.",
+  "close": "Schließen",
+  "cancel": "Abbrechen",
+  "howToPlay": "Spielanleitung",
+  "about": "Über",
+  "yourName": "Dein Name",
+  "save": "Speichern",
+  "skip": "Überspringen",
+  "playAgain": "Nochmal spielen",
+  "statTime": "Zeit",
+  "statGame": "Spiel",
+  "undo": "Rückgängig",
+  "restart": "Dieses Spiel neu starten",
+  "chooseGame": "Spielnummer wählen",
+  "play": "Spielen",
+  "difficulty": "Schwierigkeit"
+}
