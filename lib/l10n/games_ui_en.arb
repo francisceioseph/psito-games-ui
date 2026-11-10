@@ -18,5 +18,13 @@
   "restart": "Restart this game",
   "chooseGame": "Choose a game number",
   "play": "Play",
-  "difficulty": "Difficulty"
+  "difficulty": "Difficulty",
+  "soundOff": "Turn the sounds off",
+  "soundOn": "Turn the sounds on",
+  "@soundOff": {
+    "description": "The button of the bar that silences the game."
+  },
+  "@soundOn": {
+    "description": "The same button, while the game is silent."
+  }
 }

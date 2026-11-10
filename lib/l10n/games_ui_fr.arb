@@ -18,5 +18,7 @@
   "restart": "Recommencer cette partie",
   "chooseGame": "Choisir un numéro de partie",
   "play": "Jouer",
-  "difficulty": "Difficulté"
+  "difficulty": "Difficulté",
+  "soundOff": "Couper les sons",
+  "soundOn": "Activer les sons"
 }

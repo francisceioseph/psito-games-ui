@@ -18,5 +18,7 @@
   "restart": "Dieses Spiel neu starten",
   "chooseGame": "Spielnummer wählen",
   "play": "Spielen",
-  "difficulty": "Schwierigkeit"
+  "difficulty": "Schwierigkeit",
+  "soundOff": "Töne ausschalten",
+  "soundOn": "Töne einschalten"
 }

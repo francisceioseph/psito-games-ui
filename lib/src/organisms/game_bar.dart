@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../atoms/bar_button.dart';
 import '../atoms/new_game_button.dart';
+import '../atoms/sound_button.dart';
 import '../l10n.dart';
 import '../molecules/game_brand.dart';
+import '../sound/game_sounds.dart';
 import '../theme/game_palette.dart';
 import 'dialogs.dart';
 
@@ -84,10 +86,18 @@ class GameBar extends StatelessWidget {
         builder: (context, box) {
           final space = BarSpace(box.maxWidth);
           final bestGames = onBestGames;
-          final entries = [
+          final sounds = GameSounds.shared;
+          // Read when the menu opens, so that the sound line says what it
+          // will do then.
+          List<GameMenuEntry> entries() => [
             if (space.narrow && bestGames != null)
               GameMenuEntry(label: l10n.bestGames, onSelected: bestGames),
             ...menu,
+            if (space.narrow)
+              GameMenuEntry(
+                label: sounds.muted ? l10n.soundOn : l10n.soundOff,
+                onSelected: sounds.toggleMuted,
+              ),
             GameMenuEntry(
               label: l10n.howToPlay,
               onSelected: () => showHowToPlay(context, info),
@@ -112,6 +122,7 @@ class GameBar extends StatelessWidget {
                   onPressed: bestGames,
                 ),
               ...?this.actions?.call(space),
+              if (!space.narrow) const SoundButton(),
               const SizedBox(width: 6),
               NewGameButton(iconOnly: space.compact, onPressed: onNewGame),
               PopupMenuButton<GameMenuEntry>(
@@ -123,7 +134,7 @@ class GameBar extends StatelessWidget {
                 icon: const Icon(Icons.more_vert_rounded, size: 21),
                 onSelected: (entry) => entry.onSelected(),
                 itemBuilder: (context) => [
-                  for (final entry in entries)
+                  for (final entry in entries())
                     PopupMenuItem(value: entry, child: Text(entry.label)),
                 ],
               ),

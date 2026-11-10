@@ -65,4 +65,10 @@ class GamesUiLocalizationsZh extends GamesUiLocalizations {
 
   @override
   String get difficulty => '难度';
+
+  @override
+  String get soundOff => '关闭声音';
+
+  @override
+  String get soundOn => '打开声音';
 }

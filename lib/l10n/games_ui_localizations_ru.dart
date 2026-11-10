@@ -65,4 +65,10 @@ class GamesUiLocalizationsRu extends GamesUiLocalizations {
 
   @override
   String get difficulty => 'Сложность';
+
+  @override
+  String get soundOff => 'Выключить звуки';
+
+  @override
+  String get soundOn => 'Включить звуки';
 }

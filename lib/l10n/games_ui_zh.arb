@@ -18,5 +18,7 @@
   "restart": "重新开始本局",
   "chooseGame": "选择牌局编号",
   "play": "开始",
-  "difficulty": "难度"
+  "difficulty": "难度",
+  "soundOff": "关闭声音",
+  "soundOn": "打开声音"
 }

@@ -224,6 +224,18 @@ abstract class GamesUiLocalizations {
   /// In en, this message translates to:
   /// **'Difficulty'**
   String get difficulty;
+
+  /// The button of the bar that silences the game.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn the sounds off'**
+  String get soundOff;
+
+  /// The same button, while the game is silent.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn the sounds on'**
+  String get soundOn;
 }
 
 class _GamesUiLocalizationsDelegate

@@ -65,4 +65,10 @@ class GamesUiLocalizationsPt extends GamesUiLocalizations {
 
   @override
   String get difficulty => 'Dificuldade';
+
+  @override
+  String get soundOff => 'Desligar os sons';
+
+  @override
+  String get soundOn => 'Ligar os sons';
 }

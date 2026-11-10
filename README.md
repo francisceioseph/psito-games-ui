@@ -15,6 +15,9 @@ The widgets follow atomic design:
 - **Organisms**: the bar, the cockatiel that peeks from the edges, the victory card and
   the dialogs (how to play, about, best games, choose a game number).
 - **Template**: the page of a game, with the felt, the bar, the board and the cockatiel.
+- **Sounds**: short, soft sounds for the cards, the leaves, the eggs and the cockatiel,
+  levelled together, with the mute button on the bar. The game says what happened
+  (`GameSound.place`, `GameSound.victory`...) and `GameSounds` picks a take and plays it.
 
 Each game gives its colours as a `GamePalette`, through `gameTheme`, and its texts as a
 `GameInfo`. The shared texts are in seven languages, the same as Psito Player: English,
@@ -27,7 +30,7 @@ dependencies:
   psito_games_ui:
     git:
       url: https://github.com/francisceioseph/psito-games-ui
-      ref: v1.0.0
+      ref: v1.1.0
 ```
 
 ```dart
@@ -44,6 +47,29 @@ MaterialApp(
 
 The bar shows the brand in the `CardSerif` font, which each game bundles.
 
+The sounds start in `main`, and stay silent until they are ready or if there is no audio
+device. The mute is remembered on the computer:
+
+```dart
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  unawaited(GameSounds.shared.start());
+  runApp(const MyGameApp());
+}
+```
+
+The controllers take a `SoundBoard`, which the tests replace with `RecordedSounds`. The sounds
+are WAV, so the game can leave out the codecs of the sound engine in its `pubspec.yaml`:
+
+```yaml
+hooks:
+  user_defines:
+    flutter_soloud:
+      no_xiph_libs: true
+```
+
+On Linux the engine opens ALSA when it starts, so the packages recommend `libasound2`.
+
 To work on a game and this package together, put a `pubspec_overrides.yaml` in the game:
 
 ```yaml
@@ -59,4 +85,5 @@ run `flutter gen-l10n`; the generated files are kept in git.
 
 ## License
 
-Code under the [Apache 2.0](LICENSE) license. The cockatiel is under [CC0](assets/LICENSE.md).
+Code under the [Apache 2.0](LICENSE) license. The cockatiel and the sounds are under
+[CC0](assets/LICENSE.md).

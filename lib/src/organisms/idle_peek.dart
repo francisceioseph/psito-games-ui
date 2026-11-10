@@ -3,7 +3,12 @@ import 'dart:math';
 
 import 'package:flutter/widgets.dart';
 
+import '../sound/game_sounds.dart';
 import 'peek.dart';
+
+/// The head is halfway in when the chirp starts.
+const _chirpOnArrival = Duration(milliseconds: 200);
+const _chirpAfterEnd = Duration(milliseconds: 1500);
 
 /// Tells the cockatiel what happens at the table: any [activity] sends it
 /// away and starts the wait again, and [peekNow] calls it at once, such as
@@ -32,12 +37,16 @@ class IdlePeek extends StatefulWidget {
     this.idle = const Duration(seconds: 45),
     this.stay = const Duration(milliseconds: 3200),
     this.random,
+    this.sounds,
   });
 
   final PeekController controller;
   final Duration idle;
   final Duration stay;
   final Random? random;
+
+  /// Where the chirp goes. Without one, the sounds of the game.
+  final SoundBoard? sounds;
 
   @override
   State<IdlePeek> createState() => _IdlePeekState();
@@ -84,7 +93,7 @@ class _IdlePeekState extends State<IdlePeek> {
     if (controller._calls != _calls) {
       _calls = controller._calls;
       _activity = controller._activity;
-      _peek();
+      _peek(called: true);
     } else if (controller._activity != _activity) {
       _activity = controller._activity;
       if (_peeking) setState(() => _peeking = false);
@@ -97,12 +106,18 @@ class _IdlePeekState extends State<IdlePeek> {
     _timer = Timer(widget.idle, _peek);
   }
 
-  void _peek() {
+  /// When the game [called] it, at its end, the chirp waits for the tune of
+  /// the end to finish.
+  void _peek({bool called = false}) {
     _timer?.cancel();
     setState(() {
       _spot = nextPeekSpot(_random, _spot);
       _peeking = true;
     });
+    (widget.sounds ?? GameSounds.shared).play(
+      GameSound.chirp,
+      delay: called ? _chirpAfterEnd : _chirpOnArrival,
+    );
     _timer = Timer(widget.stay, () {
       setState(() => _peeking = false);
       _waitIdle();

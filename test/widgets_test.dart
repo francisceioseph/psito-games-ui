@@ -94,7 +94,7 @@ void main() {
     await tester.pumpWidget(const SizedBox());
   });
 
-  testWidgets('narrow, the best games go into the menu, before the help', (
+  testWidgets('narrow, the best games and the sound go into the menu, before the help', (
     tester,
   ) async {
     var best = 0;
@@ -111,7 +111,13 @@ void main() {
           find.byType(PopupMenuItem<GameMenuEntry>),
         )
         .map((item) => item.value!.label);
-    expect(lines, ['Melhores partidas', 'Extra', 'Como jogar', 'Sobre']);
+    expect(lines, [
+      'Melhores partidas',
+      'Extra',
+      'Desligar os sons',
+      'Como jogar',
+      'Sobre',
+    ]);
     await tester.tap(find.text('Melhores partidas'));
     await tester.pumpAndSettle();
     expect(best, 1);
