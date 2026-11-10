@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../l10n.dart';
+import '../platform.dart';
 import '../theme/game_palette.dart';
 
 /// The cream button that starts a new game, only the dice when space is
@@ -30,18 +31,16 @@ class NewGameButton extends StatelessWidget {
     const icon = Icon(Icons.casino_outlined, size: 19);
     if (iconOnly) {
       return Tooltip(
-        message: '$label  (Ctrl+N)',
+        message: withShortcut(label, 'Ctrl+N'),
         child: FilledButton(onPressed: onPressed, style: style, child: icon),
       );
     }
-    return Tooltip(
-      message: 'Ctrl+N',
-      child: FilledButton.icon(
-        onPressed: onPressed,
-        style: style,
-        icon: icon,
-        label: Text(label),
-      ),
+    final button = FilledButton.icon(
+      onPressed: onPressed,
+      style: style,
+      icon: icon,
+      label: Text(label),
     );
+    return touchFirst ? button : Tooltip(message: 'Ctrl+N', child: button);
   }
 }

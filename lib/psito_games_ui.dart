@@ -11,6 +11,7 @@ export 'src/atoms/stat_tile.dart';
 export 'src/format.dart';
 export 'src/l10n.dart';
 export 'src/mascot.dart';
+export 'src/platform.dart';
 export 'src/molecules/choice_button.dart';
 export 'src/molecules/clock_stat.dart';
 export 'src/molecules/end_note.dart';

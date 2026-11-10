@@ -33,8 +33,7 @@ class GameTable extends StatefulWidget {
 class _GameTableState extends State<GameTable> {
   PeekController? _own;
 
-  PeekController get _peek =>
-      widget.peek ?? (_own ??= PeekController());
+  PeekController get _peek => widget.peek ?? (_own ??= PeekController());
 
   @override
   void dispose() {
@@ -61,6 +60,7 @@ class _GameTableState extends State<GameTable> {
                   child: Stack(
                     fit: StackFit.expand,
                     children: [
+                      // The felt runs under the system bars of a phone...
                       DecoratedBox(
                         decoration: BoxDecoration(
                           gradient: RadialGradient(
@@ -74,9 +74,19 @@ class _GameTableState extends State<GameTable> {
                           ),
                         ),
                       ),
-                      widget.board,
-                      ...widget.overlays,
-                      IdlePeek(controller: _peek),
+                      // ...and the board stays clear of them. The bar
+                      // takes the top inset.
+                      SafeArea(
+                        top: false,
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            widget.board,
+                            ...widget.overlays,
+                            IdlePeek(controller: _peek),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),

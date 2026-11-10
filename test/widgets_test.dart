@@ -58,11 +58,17 @@ void main() {
   testWidgets('the bar fits from a narrow window to a wide one', (
     tester,
   ) async {
-    for (final width in const [400.0, 480.0, 700.0, 1280.0, 1920.0]) {
+    for (final width in const [
+      320.0,
+      360.0,
+      400.0,
+      480.0,
+      700.0,
+      1280.0,
+      1920.0,
+    ]) {
       await setSize(tester, Size(width, 400));
-      await tester.pumpWidget(
-        app(Scaffold(body: Column(children: [bar()]))),
-      );
+      await tester.pumpWidget(app(Scaffold(body: Column(children: [bar()]))));
       expect(tester.takeException(), isNull, reason: '$width');
     }
     await tester.pumpWidget(const SizedBox());
@@ -94,43 +100,44 @@ void main() {
     await tester.pumpWidget(const SizedBox());
   });
 
-  testWidgets('narrow, the best games and the sound go into the menu, before the help', (
-    tester,
-  ) async {
-    var best = 0;
-    await setSize(tester, const Size(480, 400));
-    await tester.pumpWidget(
-      app(Scaffold(body: Column(children: [bar(onBestGames: () => best++)]))),
-    );
-    expect(find.text('Psito Test'), findsNothing);
-    expect(find.byTooltip('Melhores partidas'), findsNothing);
-    await tester.tap(find.byTooltip('Mais opções'));
-    await tester.pumpAndSettle();
-    final lines = tester
-        .widgetList<PopupMenuItem<GameMenuEntry>>(
-          find.byType(PopupMenuItem<GameMenuEntry>),
-        )
-        .map((item) => item.value!.label);
-    expect(lines, [
-      'Melhores partidas',
-      'Extra',
-      'Desligar os sons',
-      'Como jogar',
-      'Sobre',
-    ]);
-    await tester.tap(find.text('Melhores partidas'));
-    await tester.pumpAndSettle();
-    expect(best, 1);
-    await tester.pumpWidget(const SizedBox());
-  });
+  testWidgets(
+    'narrow, the best games and the sound go into the menu, before the help',
+    (tester) async {
+      var best = 0;
+      await setSize(tester, const Size(480, 400));
+      await tester.pumpWidget(
+        app(
+          Scaffold(
+            body: Column(children: [bar(onBestGames: () => best++)]),
+          ),
+        ),
+      );
+      expect(find.text('Psito Test'), findsNothing);
+      expect(find.byTooltip('Melhores partidas'), findsNothing);
+      await tester.tap(find.byTooltip('Mais opções'));
+      await tester.pumpAndSettle();
+      final lines = tester
+          .widgetList<PopupMenuItem<GameMenuEntry>>(
+            find.byType(PopupMenuItem<GameMenuEntry>),
+          )
+          .map((item) => item.value!.label);
+      expect(lines, [
+        'Melhores partidas',
+        'Extra',
+        'Desligar os sons',
+        'Como jogar',
+        'Sobre',
+      ]);
+      await tester.tap(find.text('Melhores partidas'));
+      await tester.pumpAndSettle();
+      expect(best, 1);
+      await tester.pumpWidget(const SizedBox());
+    },
+  );
 
-  testWidgets('the help and the about box come from the game', (
-    tester,
-  ) async {
+  testWidgets('the help and the about box come from the game', (tester) async {
     await setSize(tester, const Size(1280, 800));
-    await tester.pumpWidget(
-      app(Scaffold(body: Column(children: [bar()]))),
-    );
+    await tester.pumpWidget(app(Scaffold(body: Column(children: [bar()]))));
     await tester.tap(find.byTooltip('Mais opções'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Como jogar'));
@@ -159,7 +166,10 @@ void main() {
       ('zh', '新游戏'),
     ]) {
       await tester.pumpWidget(
-        app(Scaffold(body: Column(children: [bar()])), locale: locale),
+        app(
+          Scaffold(body: Column(children: [bar()])),
+          locale: locale,
+        ),
       );
       expect(find.text(text), findsOneWidget, reason: locale);
     }

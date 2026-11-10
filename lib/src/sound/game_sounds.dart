@@ -104,7 +104,8 @@ class GameSounds extends ChangeNotifier implements SoundBoard {
   /// fails, the game stays silent.
   Future<void> start() async {
     try {
-      _muted = (await SharedPreferences.getInstance()).getBool(_mutedKey) ?? false;
+      _muted =
+          (await SharedPreferences.getInstance()).getBool(_mutedKey) ?? false;
       notifyListeners();
     } on Object catch (error) {
       debugPrint('the sound setting could not be read: $error');

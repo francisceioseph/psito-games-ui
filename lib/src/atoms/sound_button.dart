@@ -19,9 +19,7 @@ class SoundButton extends StatelessWidget {
       listenable: sounds,
       builder: (context, _) => BarButton(
         tooltip: sounds.muted ? l10n.soundOn : l10n.soundOff,
-        icon: sounds.muted
-            ? Icons.volume_off_rounded
-            : Icons.volume_up_rounded,
+        icon: sounds.muted ? Icons.volume_off_rounded : Icons.volume_up_rounded,
         onPressed: sounds.toggleMuted,
       ),
     );
